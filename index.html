@@ -517,7 +517,128 @@
       background: rgba(255, 255, 255, 1);
     }
 
-    /* Mini App Mockup Card */
+    /* Create Post Interactive Simulator Styles */
+    .create-post-card {
+      background: #ffffff;
+      border: 1px solid var(--border-pink);
+      border-radius: var(--radius-md);
+      padding: 18px 16px;
+      margin-top: 14px;
+      box-shadow: 0 4px 16px rgba(220, 39, 67, 0.05);
+    }
+
+    .create-input-group {
+      margin-bottom: 14px;
+    }
+
+    .create-input-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .create-link-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      font-size: 13px;
+      background: #fafafa;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .create-link-input:focus {
+      border-color: #f43f5e;
+      background: #ffffff;
+    }
+
+    .chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .action-chip {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border-pink);
+      background: #fff;
+      color: #374151;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .action-chip:hover {
+      background: #fdf2f8;
+    }
+
+    .action-chip.selected {
+      background: #fdf2f8;
+      border-color: #ec4899;
+      color: #be185d;
+      box-shadow: 0 2px 6px rgba(236, 72, 153, 0.15);
+    }
+
+    .action-chip.selected::before {
+      content: '✓';
+      font-weight: 700;
+      color: #ec4899;
+    }
+
+    .time-chips-row {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .time-chip {
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid var(--border-subtle);
+      background: #fafafa;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .time-chip.selected {
+      background: #e0f2fe;
+      border-color: #38bdf8;
+      color: #0369a1;
+    }
+
+    .preview-box {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 14px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .preview-box-header {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
     .miniapp-screen {
       background: #ffffff;
       border: 2px solid var(--border-pink);
@@ -1053,6 +1174,78 @@
             </div>
           </div>
         </div>
+
+        <!-- INTERACTIVE POST CREATION SIMULATOR -->
+        <div style="margin-top: 24px; border-top: 1px dashed var(--border-pink); padding-top: 18px;">
+          <h3 style="display:flex; align-items:center; gap:6px; margin-bottom:4px; font-size: 15px;">
+            <span>✨</span> Интерактив: добавление поста в Mini App
+          </h3>
+          <p class="muted" style="margin-bottom: 12px; font-size: 13px;">
+            Участница не пишет длинных текстов: вставляет ссылку и просто кликает по нужным опциям:
+          </p>
+
+          <div class="create-post-card">
+            <!-- Step 1: Link input -->
+            <div class="create-input-group">
+              <div class="create-input-label">
+                <span>1. Ссылка на публикацию</span>
+                <span style="color:#10b981; font-weight:600;">Instagram Reels / Post</span>
+              </div>
+              <input type="text" class="create-link-input" id="post-link-input" value="https://www.instagram.com/reel/DebputFgInY/?srtk=..." placeholder="Вставьте ссылку на Reels или карусель">
+            </div>
+
+            <!-- Step 2: Activity requirements chips -->
+            <div class="create-input-group">
+              <div class="create-input-label">
+                <span>2. Что требуется от участниц (кликните для выбора)</span>
+              </div>
+              <div class="chips-grid" id="action-chips">
+                <span class="action-chip selected" onclick="toggleChip(this, '🤍 Прокрутка карусели')">🤍 Прокрутка карусели</span>
+                <span class="action-chip selected" onclick="toggleChip(this, '🧡 Лайк')">🧡 Лайк</span>
+                <span class="action-chip selected" onclick="toggleChip(this, '💬 Комментарий от 4 слов')">💬 Комментарий от 4 слов</span>
+                <span class="action-chip selected" onclick="toggleChip(this, '🌸 Сохранение')">🌸 Сохранение</span>
+                <span class="action-chip" onclick="toggleChip(this, '📲 Репост в сторис')">📲 Репост в сторис</span>
+                <span class="action-chip" onclick="toggleChip(this, '👀 Досмотреть до конца')">👀 Досмотреть до конца</span>
+                <span class="action-chip" onclick="toggleChip(this, '🔗 Скопировать ссылку')">🔗 Скопировать ссылку</span>
+                <span class="action-chip" onclick="toggleChip(this, '✨ Реакция на сторис')">✨ Реакция на сторис</span>
+              </div>
+            </div>
+
+            <!-- Step 3: Prime time selection -->
+            <div class="create-input-group" style="margin-bottom: 8px;">
+              <div class="create-input-label">
+                <span>3. Прайм-тайм активности</span>
+              </div>
+              <div class="time-chips-row" id="time-chips">
+                <span class="time-chip selected" onclick="selectTimeChip(this, 'с 16:00 до 21:00')">🔥 Сегодня 16:00 – 21:00</span>
+                <span class="time-chip" onclick="selectTimeChip(this, 'с 19:00 до 23:00')">🌙 Вечерний пик (19:00 – 23:00)</span>
+                <span class="time-chip" onclick="selectTimeChip(this, 'утром с 10:00 до 14:00')">☀️ Завтра утром (10:00 – 14:00)</span>
+                <span class="time-chip" onclick="selectTimeChip(this, 'в течение 24 часов')">⏳ В течение 24 часов</span>
+              </div>
+            </div>
+
+            <!-- Live Telegram Message Preview Generated -->
+            <div class="preview-box">
+              <div class="preview-box-header">⚡ Бот сам сформирует и отправит в чат:</div>
+              <div id="dynamic-preview-text" style="color: #1e293b;">
+                ✨ <strong>Запрос на взаимный актив</strong> от @alexa_beauty<br>
+                ⏰ <strong>Прайм-тайм:</strong> <span id="preview-time-text">с 16:00 до 21:00</span> (дедлайн 24ч)<br><br>
+                <div id="preview-actions-list" style="margin-bottom: 6px; line-height: 1.5;">
+                  • 🤍 Прокрутка карусели<br>
+                  • 🧡 Лайк<br>
+                  • 💬 Комментарий от 4 слов<br>
+                  • 🌸 Сохранение
+                </div>
+                <div style="font-size:11px; color:#707579; margin-top:4px;">💄 Бьюти & Лайфстайл</div>
+                <em style="color:#64748b; font-size:11px;">Всем спасибо 🤍✨</em>
+              </div>
+            </div>
+
+            <button class="btn-gradient" style="margin-top: 14px; padding: 12px; font-size: 14px;" onclick="simulatePublishSuccess(this)">
+              <span>Опубликовать задание в чат</span>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1281,18 +1474,68 @@
 
   <script>
     function switchMiniAppTab(tabId, el) {
-      // Снимаем active со всех табов
       document.querySelectorAll('.miniapp-tab').forEach(tab => tab.classList.remove('active'));
       el.classList.add('active');
 
-      // Скрываем все панели
       document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
-
-      // Показываем нужную
       const activePane = document.getElementById('tab-' + tabId);
       if (activePane) {
         activePane.style.display = 'block';
       }
+    }
+
+    // Interactive Post Creation Chips Logic
+    const selectedActions = new Set([
+      '🤍 Прокрутка карусели',
+      '🧡 Лайк',
+      '💬 Комментарий от 4 слов',
+      '🌸 Сохранение'
+    ]);
+
+    function toggleChip(chip, actionText) {
+      if (selectedActions.has(actionText)) {
+        if (selectedActions.size > 1) { // Не даём снять всё
+          selectedActions.delete(actionText);
+          chip.classList.remove('selected');
+        }
+      } else {
+        selectedActions.add(actionText);
+        chip.classList.add('selected');
+      }
+      updatePreviewList();
+    }
+
+    function selectTimeChip(chip, timeText) {
+      document.querySelectorAll('.time-chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      const timeSpan = document.getElementById('preview-time-text');
+      if (timeSpan) {
+        timeSpan.innerText = timeText;
+      }
+    }
+
+    function updatePreviewList() {
+      const listContainer = document.getElementById('preview-actions-list');
+      if (!listContainer) return;
+
+      let html = '';
+      selectedActions.forEach(action => {
+        html += `• ${action}<br>`;
+      });
+      listContainer.innerHTML = html;
+    }
+
+    function simulatePublishSuccess(btn) {
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span>✓ Задание отправлено в чат!</span>';
+      btn.style.background = '#10b981';
+      btn.style.boxShadow = '0 4px 14px rgba(16, 185, 129, 0.3)';
+
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.background = '';
+        btn.style.boxShadow = '';
+      }, 2500);
     }
   </script>
 </body>
