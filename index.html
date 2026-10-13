@@ -3,29 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Система учёта взаимного актива | Для администраторов чатов</title>
+  <title>Концепт клубной системы взаимного актива в Instagram | Для создательниц чатов</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fafafa;
+      --bg: #fcf9fa;
       --surface: #ffffff;
       --text: #262626;
       --text-muted: #737373;
-      --border: #dbdbdb;
-      --border-subtle: #efefef;
+      --border-subtle: #f2e9ec;
+      --border-pink: #fbcfe8;
       --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      --ig-soft-pink: #fdf2f8;
+      --ig-rose: #f43f5e;
       --ig-blue: #0095f6;
-      --ig-blue-hover: #1877f2;
       --success: #10b981;
       --warning: #f59e0b;
-      --danger: #ef4444;
-      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
-      --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
+      --shadow-soft: 0 8px 24px rgba(220, 39, 67, 0.06);
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 24px;
     }
 
     * {
@@ -48,10 +47,10 @@
 
     .container {
       width: 100%;
-      max-width: 640px;
+      max-width: 620px;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
     }
 
     /* Cards */
@@ -59,15 +58,16 @@
       background: var(--surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 22px 18px;
-      box-shadow: var(--shadow-sm);
+      padding: 24px 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
     }
 
     /* Headings */
     h1 {
       font-size: 26px;
       font-weight: 700;
-      line-height: 1.25;
+      line-height: 1.28;
       letter-spacing: -0.02em;
       color: var(--text);
     }
@@ -85,7 +85,7 @@
     h3 {
       font-size: 16px;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     p {
@@ -104,8 +104,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       width: 100%;
-      padding: 14px 20px;
+      padding: 15px 22px;
       background: var(--ig-gradient);
       color: #fff;
       font-weight: 600;
@@ -114,8 +115,8 @@
       border-radius: var(--radius-sm);
       border: none;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(220, 39, 67, 0.25);
-      transition: opacity 0.2s, transform 0.1s;
+      box-shadow: 0 6px 18px rgba(220, 39, 67, 0.28);
+      transition: transform 0.15s, opacity 0.15s;
     }
 
     .btn-gradient:active {
@@ -129,47 +130,44 @@
       justify-content: center;
       width: 100%;
       padding: 12px 16px;
-      background: #f0f2f5;
+      background: #fff;
       color: var(--text);
       font-weight: 600;
       font-size: 14px;
       text-decoration: none;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-pink);
       transition: background 0.15s;
     }
 
     .btn-secondary:hover {
-      background: #e4e6eb;
+      background: var(--ig-soft-pink);
     }
 
-    /* Badge */
+    /* Badges */
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       font-size: 12px;
       font-weight: 600;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 20px;
-      background: #fff0f5;
+      background: var(--ig-soft-pink);
       color: #dc2743;
-      border: 1px solid #ffd1dc;
-      margin-bottom: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      border: 1px solid var(--border-pink);
+      margin-bottom: 16px;
     }
 
-    /* Hero Section */
+    /* Hero */
     .hero {
       text-align: center;
-      padding: 32px 18px 24px;
-      position: relative;
+      padding: 34px 20px 26px;
     }
 
-    .hero-avatar-ring {
-      width: 76px;
-      height: 76px;
+    .stories-ring {
+      width: 82px;
+      height: 82px;
       margin: 0 auto 16px;
       padding: 3px;
       background: var(--ig-gradient);
@@ -177,9 +175,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 14px rgba(220, 39, 67, 0.2);
     }
 
-    .hero-avatar-inner {
+    .stories-inner {
       width: 100%;
       height: 100%;
       background: #fff;
@@ -187,6 +186,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 34px;
     }
 
     .hero h1 span {
@@ -198,165 +198,199 @@
     .hero-desc {
       font-size: 15px;
       color: var(--text-muted);
-      margin-top: 10px;
+      margin-top: 12px;
       margin-bottom: 22px;
     }
 
-    /* Problem Cards */
-    .problem-grid {
+    /* Instagram Live Post Card Mockup */
+    .ig-post-card {
+      border: 1px solid var(--border-pink);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+      margin-top: 12px;
+    }
+
+    .ig-post-header {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .ig-user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-mini {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      padding: 2px;
+      background: var(--ig-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-mini-inner {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .ig-user-names {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .ig-user-names strong {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ig-user-names span {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .ig-post-body {
+      padding: 14px;
+      background: #fffafa;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .ig-task-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .task-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: #fff;
+      border: 1px solid var(--border-pink);
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #9d174d;
+    }
+
+    .ig-post-actions {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+    }
+
+    .action-icons-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #262626;
+    }
+
+    .status-badge-done {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Cards grid */
+    .examples-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .niche-card {
+      padding: 14px;
+      background: #ffffff;
+      border: 1px solid var(--border-pink);
+      border-radius: var(--radius-sm);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .niche-emoji {
+      font-size: 26px;
+      flex-shrink: 0;
+      background: var(--ig-soft-pink);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Telegram Chat Simulation */
+    .tg-chat-mockup {
+      background: #fdf6f8;
+      border: 1px solid var(--border-pink);
+      border-radius: var(--radius-md);
+      padding: 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    .problem-item {
-      display: flex;
-      gap: 14px;
-      padding: 14px;
-      background: #fffaf9;
-      border: 1px solid #fee2e2;
-      border-radius: var(--radius-sm);
-    }
-
-    .problem-icon {
-      flex-shrink: 0;
-      width: 32px;
-      height: 32px;
-      background: #fee2e2;
-      color: var(--danger);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* How it works pipeline */
-    .flow-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      position: relative;
-    }
-
-    .step-card {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      padding: 14px;
-      background: #fdfdfd;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-    }
-
-    .step-num {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--ig-gradient);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 13px;
-      flex-shrink: 0;
-    }
-
-    /* Demo Panel */
-    .demo-window {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .demo-header {
-      background: #fafafa;
-      border-bottom: 1px solid var(--border);
+    .tg-msg {
+      background: #ffffff;
       padding: 10px 14px;
+      border-radius: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      font-size: 13px;
+      max-width: 90%;
+    }
+
+    .tg-msg.admin-bot {
+      background: #ffffff;
+      border: 1px solid #fed7aa;
+      border-left: 4px solid #f97316;
+    }
+
+    .tg-msg-header {
+      font-weight: 700;
+      color: #be185d;
+      font-size: 12px;
+      margin-bottom: 2px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-      font-weight: 600;
     }
 
-    .demo-badge-live {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: var(--success);
-      font-size: 12px;
-    }
-
-    .demo-badge-live::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--success);
-      border-radius: 50%;
-    }
-
-    .table-container {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    table.demo-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      text-align: left;
-      min-width: 320px;
-    }
-
-    table.demo-table th {
-      padding: 10px 12px;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--border-subtle);
-      font-weight: 500;
-      background: #fff;
-    }
-
-    table.demo-table td {
-      padding: 12px;
-      border-bottom: 1px solid var(--border-subtle);
-      vertical-align: middle;
-    }
-
-    .tag-debt {
-      background: #fee2e2;
-      color: #b91c1c;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 11px;
-    }
-
-    .tag-ok {
-      background: #d1fae5;
-      color: #065f46;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 11px;
-    }
-
-    .tag-review {
-      background: #fef3c7;
-      color: #92400e;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 11px;
-    }
-
-    /* Honest limitation box */
+    /* Honest limitation */
     .honesty-box {
       border: 1px solid #fed7aa;
       background: #fffaf5;
       border-radius: var(--radius-md);
-      padding: 18px;
+      padding: 20px;
     }
 
     .honesty-title {
@@ -369,50 +403,6 @@
       margin-bottom: 8px;
     }
 
-    /* Modes Grid */
-    .modes-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .mode-card {
-      padding: 14px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: #fff;
-    }
-
-    .mode-card.active {
-      border-color: #f43f5e;
-      background: #fffbfa;
-    }
-
-    /* Timeline */
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      position: relative;
-      margin-top: 8px;
-    }
-
-    .timeline-item {
-      display: flex;
-      gap: 14px;
-    }
-
-    .timeline-pill {
-      font-size: 12px;
-      font-weight: 700;
-      color: #fff;
-      background: #262626;
-      padding: 2px 8px;
-      border-radius: 4px;
-      height: fit-content;
-      white-space: nowrap;
-    }
-
     /* FAQ */
     .faq-list {
       display: flex;
@@ -421,10 +411,10 @@
     }
 
     details.faq-item {
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-pink);
       border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      background: #fafafa;
+      padding: 12px 16px;
+      background: #ffffff;
       cursor: pointer;
     }
 
@@ -444,7 +434,7 @@
     details.faq-item summary::after {
       content: '+';
       font-size: 18px;
-      color: var(--text-muted);
+      color: #be185d;
     }
 
     details[open].faq-item summary::after {
@@ -452,15 +442,14 @@
     }
 
     details.faq-item p {
-      margin-top: 10px;
-      font-size: 14px;
+      margin-top: 8px;
+      font-size: 13px;
       color: var(--text-muted);
     }
 
-    /* Footer / CTA */
     .footer {
       text-align: center;
-      padding: 20px 0;
+      padding: 16px 0;
       font-size: 13px;
       color: var(--text-muted);
     }
@@ -471,349 +460,243 @@
 
     <!-- HERO -->
     <header class="card hero">
-      <div class="hero-avatar-ring">
-        <div class="hero-avatar-inner">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#dc2743" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-          </svg>
-        </div>
+      <div class="stories-ring">
+        <div class="stories-inner">✨</div>
       </div>
-      <div class="badge">Пилот для администраторов</div>
-      <h1>Порядок в чате актива <span>без ручных сверок</span></h1>
+      <div class="badge">Концепт умного клуба взаимоактива</div>
+      <h1>Уютный чат актива <span>без ссор, долгов и рутины</span></h1>
       <p class="hero-desc">
-        Бот, который фиксирует обязательства, выявляет должников и защищает честных участников. Вы управляете чатом, а не тратите воскресенья на сверку списков.
+        Идея заботливого Telegram-помощника для основательниц и модераторов бьюти-, лайфстайл- и экспертных чатов. Чтобы каждая публикация получала тёплые искренние охваты, а проверка должников происходила сама собой.
       </p>
       <div style="display: flex; flex-direction: column; gap: 10px;">
-        <a href="#cta" class="btn-gradient">Обсудить пилот для вашего чата</a>
-        <a href="#how" class="btn-secondary">Посмотреть, как это устроено</a>
+        <a href="#concept-details" class="btn-gradient">
+          <span>Посмотреть, как выглядит концепт</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
       </div>
     </header>
 
-    <!-- SECTION: PROBLEMS -->
-    <section class="card">
+    <!-- SECTION: VISUAL EXAMPLES FOR GIRLS -->
+    <section class="card" id="concept-details">
       <h2>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-        Знакомые проблемы каждого чата
+        <span style="font-size: 20px;">🎀</span>
+        Как это выглядит для участниц
       </h2>
-      <div class="problem-grid">
-        <div class="problem-item">
-          <div class="problem-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-          </div>
-          <div>
-            <h3>Часы на проверки по выходным</h3>
-            <p class="muted">Админам приходится вручную открывать ссылки, сопоставлять ники в Instagram и Telegram и вести блокноты со штрафниками.</p>
-          </div>
-        </div>
-
-        <div class="problem-item">
-          <div class="problem-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          </div>
-          <div>
-            <h3>Бесконечные споры «я вернула»</h3>
-            <p class="muted">Участники жалуются на невзаимность, а нарушители утверждают, что поставили лайк, создавая токсичную атмосферу.</p>
-          </div>
-        </div>
-
-        <div class="problem-item">
-          <div class="problem-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-          </div>
-          <div>
-            <h3>Риск наказать невиновного</h3>
-            <p class="muted">Из-за скрытых профилей или ошибок памяти админ может выдать страйк добросовестному участнику и потерять его доверие.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: HOW IT WORKS -->
-    <section class="card" id="how">
-      <h2>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0095f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-        </svg>
-        Как устроена механика
-      </h2>
-      <p class="muted" style="margin-bottom: 16px;">Бот не требует паролей и не вмешивается в Instagram. Он аккуратно структурирует то, что уже происходит в вашем чате.</p>
-      
-      <div class="flow-steps">
-        <div class="step-card">
-          <div class="step-num">1</div>
-          <div>
-            <h3>Публикация поста</h3>
-            <p class="muted">Участник отправляет ссылку на пост или Reels в чат. Бот фиксирует автора и создаёт задачу на возврат.</p>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">2</div>
-          <div>
-            <h3>Отметка о выполнении</h3>
-            <p class="muted">Другой участник нажимает кнопку или отвечает в чате: «Сделано». Возникает прозрачное обязательство со сроком (например, 24ч).</p>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">3</div>
-          <div>
-            <h3>Взаимное подтверждение (Peer Review)</h3>
-            <p class="muted">Автор поста видит отметку и может подтвердить или оспорить её в один клик. Нет споров — система закрывает баланс.</p>
-          </div>
-        </div>
-
-        <div class="step-card">
-          <div class="step-num">4</div>
-          <div>
-            <h3>Репутация и очередь для админа</h3>
-            <p class="muted">Если кто-то систематически берёт актив и не возвращает, система формирует понятную карточку нарушителя на подтверждение админу.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: ADMIN DEMO -->
-    <section class="card">
-      <h2>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-          <line x1="3" y1="9" x2="21" y2="9"></line>
-          <line x1="9" y1="21" x2="9" y2="9"></line>
-        </svg>
-        Что видит модератор
-      </h2>
-      <p class="muted" style="margin-bottom: 14px;">Вам больше не нужны блокноты. Вся сводка доступна прямо в админском канале или по одной команде.</p>
-      
-      <div class="demo-window">
-        <div class="demo-header">
-          <span>Сводка чата: Мираж-Актив</span>
-          <span class="demo-badge-live">Мониторинг активен</span>
-        </div>
-        <div class="table-container">
-          <table class="demo-table">
-            <thead>
-              <tr>
-                <th>Участник</th>
-                <th>Баланс</th>
-                <th>Срок</th>
-                <th>Статус</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>@user_olga</strong></td>
-                <td>+4 выполнено</td>
-                <td>В норме</td>
-                <td><span class="tag-ok">Чисто</span></td>
-              </tr>
-              <tr>
-                <td><strong>@user_elena</strong></td>
-                <td>-2 долга</td>
-                <td>истекает через 2ч</td>
-                <td><span class="tag-review">Напоминание</span></td>
-              </tr>
-              <tr>
-                <td><strong>@user_marina</strong></td>
-                <td>-5 долгов</td>
-                <td>просрочено 18ч</td>
-                <td><span class="tag-debt">Кандидат на страйк</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <p class="muted" style="margin-top: 10px; font-size: 13px;">
-        * Бот никогда не банит людей сам — он лишь собирает факты и предлагает вам готовые решения («Выдать предупреждение» / «Исключить»).
+      <p class="muted" style="margin-bottom: 14px;">
+        Вместо простыней ссылок и сообщений «вернула в ЛС» — наглядные карточки публикаций с точным запросом на активность:
       </p>
+
+      <!-- Instagram Post Interactive Simulation 1 -->
+      <div class="ig-post-card">
+        <div class="ig-post-header">
+          <div class="ig-user-info">
+            <div class="avatar-mini">
+              <div class="avatar-mini-inner">💄</div>
+            </div>
+            <div class="ig-user-names">
+              <strong>@daria_beauty_vrn <span title="Проверенная участница" style="color:#0095f6;">✔</span></strong>
+              <span>Бьюти-эксперт • 24 мин назад</span>
+            </div>
+          </div>
+          <span style="font-size: 12px; color: #db2777; font-weight: 600;">Reels</span>
+        </div>
+
+        <div class="ig-post-body">
+          <p style="font-size: 13px; margin-bottom: 6px;">
+            «Новый осенний макияж за 10 минут! Девочки, поддержите, пожалуйста рилс🧡»
+          </p>
+          <div class="ig-task-pills">
+            <span class="task-pill">🧡 Лайк</span>
+            <span class="task-pill">💬 Комментарий от 4 слов</span>
+            <span class="task-pill">🌸 Сохранение</span>
+          </div>
+        </div>
+
+        <div class="ig-post-actions">
+          <div class="action-icons-left">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#f43f5e" stroke="#f43f5e" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </div>
+          <span class="status-badge-done">
+            <span>✓</span> Взаимно выполнено 14/14
+          </span>
+        </div>
+      </div>
+
+      <!-- Instagram Post Simulation 2 -->
+      <div class="ig-post-card">
+        <div class="ig-post-header">
+          <div class="ig-user-info">
+            <div class="avatar-mini">
+              <div class="avatar-mini-inner">📸</div>
+            </div>
+            <div class="ig-user-names">
+              <strong>@alena_photographer <span style="color:#0095f6;">✔</span></strong>
+              <span>Фотограф & Эстетика • 1 час назад</span>
+            </div>
+          </div>
+          <span style="font-size: 12px; color: #db2777; font-weight: 600;">Карусель</span>
+        </div>
+
+        <div class="ig-post-body">
+          <p style="font-size: 13px; margin-bottom: 6px;">
+            «Серия портретов при закатном свете. Нужны реакции на сторис и мнение в комментах!»
+          </p>
+          <div class="ig-task-pills">
+            <span class="task-pill">🧡 Лайк</span>
+            <span class="task-pill">💬 Осмысленный комментарий</span>
+            <span class="task-pill">✨ Реакция на сторис</span>
+          </div>
+        </div>
+
+        <div class="ig-post-actions">
+          <div class="action-icons-left">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          </div>
+          <span style="font-size: 12px; color: #f59e0b; font-weight: 600; background: #fffbeb; padding: 3px 8px; border-radius: 12px; border: 1px solid #fde68a;">
+            ⏳ Ожидает взаимность (до 19:00)
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: NICHES & TARGETING -->
+    <section class="card">
+      <h2>
+        <span style="font-size: 20px;">🌸</span>
+        Тематический актив по нишам
+      </h2>
+      <p class="muted" style="margin-bottom: 12px;">
+        Алгоритмы Instagram обращают внимание на то, кто оставляет комментарии. Концепт позволяет делить участников по интересам для максимального органического роста:
+      </p>
+      <div class="examples-grid">
+        <div class="niche-card">
+          <div class="niche-emoji">💄</div>
+          <div>
+            <h3>Beauty & Style</h3>
+            <p class="muted">Мастера макияжа, косметологи, стилисты. Реальные заинтересованные отзывы о процедурах и косметике.</p>
+          </div>
+        </div>
+        <div class="niche-card">
+          <div class="niche-emoji">📸</div>
+          <div>
+            <h3>Визуал & Эстетика</h3>
+            <p class="muted">Фотографы, контент-мейкеры, дизайнеры. Глубокие сохранения, репосты в сторис и эстетские кадры.</p>
+          </div>
+        </div>
+        <div class="niche-card">
+          <div class="niche-emoji">🧠</div>
+          <div>
+            <h3>Эксперты & Психология</h3>
+            <p class="muted">Коучи, психологи, нутрициологи. Длинные вдумчивые комментарии, поднимающие публикации в ТОП рекомендаций.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: WHAT ADMIN SEES -->
+    <section class="card">
+      <h2>
+        <span style="font-size: 20px;">☕</span>
+        Как освобождается время администратора
+      </h2>
+      <p class="muted" style="margin-bottom: 14px;">
+        Больше не нужно вести списки в заметках или блокнотах в конце недели. Бот деликатно ведёт учёт в фоновом режиме:
+      </p>
+
+      <div class="tg-chat-mockup">
+        <div class="tg-msg">
+          <div class="tg-msg-header">
+            <span>Кристина (участница)</span>
+            <span style="color:#9ca3af; font-weight: normal;">14:32</span>
+          </div>
+          Отметила пост Дарьи, оставила комментарий по правилам 🧡
+        </div>
+
+        <div class="tg-msg admin-bot">
+          <div class="tg-msg-header" style="color: #ea580c;">
+            <span>🌸 Бот-ассистент</span>
+            <span style="color:#9ca3af; font-weight: normal;">14:32</span>
+          </div>
+          <div>
+            Зафиксировано взаимное обязательство для <strong>@kristina_psy</strong> (дедлайн 24 часа). Дарье отправлена кнопка подтверждения.
+          </div>
+        </div>
+
+        <div class="tg-msg" style="align-self: flex-end; background: #fff1f2;">
+          <div class="tg-msg-header" style="color: #be185d;">
+            <span>Дарья (автор поста)</span>
+            <span style="color:#9ca3af; font-weight: normal;">14:38</span>
+          </div>
+          Спасибо, коммент увидела, всё отлично! [Подтверждено в 1 клик]
+        </div>
+      </div>
+
+      <div style="margin-top: 16px; padding: 12px; background: #fff5f7; border-radius: 12px; border: 1px dashed var(--border-pink);">
+        <p style="font-size: 13px; color: #831843; margin-bottom: 0;">
+          👑 <strong>Привилегии для VIP:</strong> Участницы с безупречной репутацией (100% отдачи) автоматически попадают в VIP-список с правом публиковать ссылки вне очереди.
+        </p>
+      </div>
     </section>
 
     <!-- SECTION: HONEST LIMITATION -->
     <div class="honesty-box">
       <div class="honesty-title">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        Честное ограничение системы
+        Безопасность для личных блогов
       </div>
       <p style="font-size: 14px; margin-bottom: 6px;">
-        <strong>Мы не заглядываем внутрь приложений Instagram.</strong> Никаких серых парсеров, ввода логинов или паролей участников.
+        <strong>Никаких входов в профили Instagram или передачи паролей.</strong>
       </p>
       <p class="muted" style="font-size: 13px;">
-        Система отслеживает <em>заявления участников и подтверждения от получателей актива</em>. Это делает систему на 100% безопасной от блокировок со стороны Meta, сохраняя при этом прозрачную дисциплину в чате.
+        Концепт построен на взаимном доверии и подтверждении автором поста («всё получено» / «не вернули»). Инстаграм не фиксирует никаких подозрительных сторонних подключений, а аккаунты девушек находятся в полной безопасности.
       </p>
     </div>
-
-    <!-- SECTION: MODES -->
-    <section class="card">
-      <h2>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bc1888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="8" y1="6" x2="21" y2="6"></line>
-          <line x1="8" y1="12" x2="21" y2="12"></line>
-          <line x1="8" y1="18" x2="21" y2="18"></line>
-          <line x1="3" y1="6" x2="3.01" y2="6"></line>
-          <line x1="3" y1="12" x2="3.01" y2="12"></line>
-          <line x1="3" y1="18" x2="3.01" y2="18"></line>
-        </svg>
-        Подходит под любые правила
-      </h2>
-      <div class="modes-grid">
-        <div class="mode-card active">
-          <h3>Прямой взаимообмен (Like Time)</h3>
-          <p class="muted">Поставили вам — вы обязаны вернуть автору в течение 24 часов. Идеально для классических чатов взаимности.</p>
-        </div>
-        <div class="mode-card">
-          <h3>Общий пул обязательств</h3>
-          <p class="muted">Участник выполняет любые 5 заданий из чата и получает право опубликовать свою ссылку. Никто не ждет конкретного человека.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: ROADMAP -->
-    <section class="card">
-      <h2>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e6683c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 6 12 12 14 14"></polyline>
-        </svg>
-        Что дальше (Roadmap развития)
-      </h2>
-      <p class="muted" style="margin-bottom: 12px;">После успешного запуска базового учёта долгов, для вашего чата станут доступны новые функции:</p>
-      <ul style="padding-left: 20px; font-size: 14px; color: var(--text); display: flex; flex-direction: column; gap: 8px;">
-        <li><strong>Тематические категории:</strong> разделение постов по нишам (бьюти, эксперты, фотографы) для лучшего удержания в Instagram.</li>
-        <li><strong>VIP-клуб и Лига надежных:</strong> автоматический допуск в закрытый чат только тех, у кого 98%+ возвратов.</li>
-        <li><strong>Mini App внутри Telegram:</strong> удобный интерфейс в один клик для прохождения заданий без спама в общем чате.</li>
-      </ul>
-    </section>
-
-    <!-- SECTION: PILOT PLAN -->
-    <section class="card">
-      <h2>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-          <line x1="16" y1="2" x2="16" y2="6"></line>
-          <line x1="8" y1="2" x2="8" y2="6"></line>
-          <line x1="3" y1="10" x2="21" y2="10"></line>
-        </svg>
-        План пилота на 4 недели
-      </h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-pill">Неделя 1</div>
-          <div>
-            <h3>Тихий сбор данных</h3>
-            <p class="muted">Бот добавлен в чат, молча анализирует активность и калибрует правила без публичных сообщений.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-pill">Неделя 2</div>
-          <div>
-            <h3>Отчёты только для вас</h3>
-            <p class="muted">Администраторы получают ежедневные приватные дайджесты о реальном балансе в чате.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-pill">Неделя 3</div>
-          <div>
-            <h3>Мягкие напоминания</h3>
-            <p class="muted">Бот начинает вежливо напоминать участникам о дедлайнах перед начислением долга.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-pill">Неделя 4</div>
-          <div>
-            <h3>Итоги и решение</h3>
-            <p class="muted">Оцениваем сокращение времени на модерацию и решаем вопрос о постоянном использовании.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: WHAT WE NEED -->
-    <section class="card">
-      <h2>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0095f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="8.5" cy="7.5" r="4"></circle>
-          <polyline points="17 11 19 13 23 9"></polyline>
-        </svg>
-        Что требуется от вас для старта
-      </h2>
-      <p class="muted" style="margin-bottom: 12px;">Вам не нужно перенастраивать чат или менять правила. Достаточно:</p>
-      <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <span style="color: var(--success); font-weight: bold;">✓</span>
-          <span>Добавить бота в группу с правами чтения сообщений</span>
-        </div>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <span style="color: var(--success); font-weight: bold;">✓</span>
-          <span>Прислать текущий текст правил (сроки возврата, лимиты постов)</span>
-        </div>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <span style="color: var(--success); font-weight: bold;">✓</span>
-          <span>Указать Telegram-юзернеймы основателей и VIP для белого списка</span>
-        </div>
-      </div>
-    </section>
 
     <!-- SECTION: FAQ -->
     <section class="card">
       <h2>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-        </svg>
-        Часто задаваемые вопросы
+        <span style="font-size: 20px;">💬</span>
+        Частые вопросы о концепте
       </h2>
       <div class="faq-list">
         <details class="faq-item">
-          <summary>Это безопасно для аккаунтов участников?</summary>
-          <p>Абсолютно. Ни один участник не вводит логины, пароли или токены Instagram. Работа идёт исключительно с публичными ссылками внутри Telegram.</p>
+          <summary>Подойдет ли это под правила нашего чата?</summary>
+          <p>Да. Система гибко настраивается под ваши условия: тайминги (12ч, 24ч, выходные), обязательные эмодзи (🧡❄️🌸), минимальный объем комментариев или формат взаимности.</p>
         </details>
 
         <details class="faq-item">
-          <summary>Что если участник обманул и нажал «Сделано»?</summary>
-          <p>Получатель актива видит эту отметку. Если лайка или комментария нет, автор нажимает кнопку «Не получено», и ситуация мгновенно передаётся на проверку.</p>
+          <summary>Что если кто-то нажал «сделано», но лайк не поставил?</summary>
+          <p>Автор публикации сразу видит, от кого ждать отдачи. Если активности нет, автор нажимает кнопку «Не вернули», и бот заносит случай в список на проверку без конфликтов в общем чате.</p>
         </details>
 
         <details class="faq-item">
-          <summary>Бот может случайно кого-то забанить?</summary>
-          <p>Нет. Бот только предлагает санкции в отдельный админский чат. Финальную кнопку бана или предупреждения всегда нажимает живой администратор.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>Сколько стоит участие в пилоте?</summary>
-          <p>Пилотный период на 4 недели полностью бесплатный. Мы собираем обратную связь для финальной доработки продукта.</p>
+          <summary>Будет ли спам в основном чате?</summary>
+          <p>Нет! Все сервисные отчёты и согласования бот может присылать в отдельную ветку, личные сообщения или в специальный админский канал.</p>
         </details>
       </div>
     </section>
 
-    <!-- SECTION: FINAL CTA -->
-    <section class="card hero" id="cta" style="border: 2px solid #ffd1dc; background: #fffafb;">
-      <div class="badge" style="background: #fff; border-color: #ffd1dc;">Шаг к порядку</div>
-      <h2 style="justify-content: center; font-size: 22px; text-align: center;">Готовы протестировать в вашем чате?</h2>
+    <!-- SECTION: DISCUSSION CTA -->
+    <section class="card hero" style="border: 2px solid #fbcfe8; background: #fffbfc;">
+      <div class="badge" style="background: #fff; border-color: #fbcfe8;">Открытое обсуждение</div>
+      <h2 style="justify-content: center; font-size: 22px; text-align: center;">Что думаете о такой концепции?</h2>
       <p class="muted" style="margin-top: 6px; margin-bottom: 20px;">
-        Напишите нам, чтобы обсудить правила вашего сообщества и подключить бота в безопасном тихом режиме.
+        Это проектная презентация идеи. Мы можем адаптировать детали, оформление и сценарии под традиции вашего сообщества.
       </p>
       <a href="https://t.me/[плейсхолдер_контакта]" class="btn-gradient" target="_blank" rel="noopener">
-        Написать в Telegram [плейсхолдер]
+        <span>Обсудить концепт в Telegram [плейсхолдер]</span>
       </a>
       <p class="muted" style="margin-top: 14px; font-size: 13px;">
-        Отвечаем в течение пары часов • Настройка занимает 10 минут
+        С заботой о времени админов и красоте ваших сообществ
       </p>
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
-      <p>© 2026 Система управления взаимоактивом • Для Telegram & Instagram сообществ</p>
+      <p>© 2026 Концепт клубной системы взаимного актива • Instagram & Telegram</p>
     </footer>
 
   </div>
