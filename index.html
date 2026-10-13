@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Система учёта взаимного актива | Для администраторов чатов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --text: #262626;
+      --text-muted: #737373;
+      --border: #dbdbdb;
+      --border-subtle: #efefef;
+      --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      --ig-blue: #0095f6;
+      --ig-blue-hover: #1877f2;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      font-size: 15px;
+      padding: 16px 12px 64px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 22px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Headings */
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    h2 {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    p {
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    p.muted {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+
+    /* Buttons & Links */
+    .btn-gradient {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 14px 20px;
+      background: var(--ig-gradient);
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(220, 39, 67, 0.25);
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .btn-gradient:active {
+      transform: scale(0.99);
+      opacity: 0.95;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px 16px;
+      background: #f0f2f5;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      transition: background 0.15s;
+    }
+
+    .btn-secondary:hover {
+      background: #e4e6eb;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: #fff0f5;
+      color: #dc2743;
+      border: 1px solid #ffd1dc;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 32px 18px 24px;
+      position: relative;
+    }
+
+    .hero-avatar-ring {
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 16px;
+      padding: 3px;
+      background: var(--ig-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-avatar-inner {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero h1 span {
+      background: var(--ig-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      margin-bottom: 22px;
+    }
+
+    /* Problem Cards */
+    .problem-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .problem-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px;
+      background: #fffaf9;
+      border: 1px solid #fee2e2;
+      border-radius: var(--radius-sm);
+    }
+
+    .problem-icon {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: #fee2e2;
+      color: var(--danger);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* How it works pipeline */
+    .flow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+    }
+
+    .step-card {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 14px;
+      background: #fdfdfd;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--ig-gradient);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    /* Demo Panel */
+    .demo-window {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .demo-header {
+      background: #fafafa;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .demo-badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--success);
+      font-size: 12px;
+    }
+
+    .demo-badge-live::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--success);
+      border-radius: 50%;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table.demo-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+      min-width: 320px;
+    }
+
+    table.demo-table th {
+      padding: 10px 12px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+      font-weight: 500;
+      background: #fff;
+    }
+
+    table.demo-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+
+    .tag-debt {
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .tag-ok {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .tag-review {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    /* Honest limitation box */
+    .honesty-box {
+      border: 1px solid #fed7aa;
+      background: #fffaf5;
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+
+    .honesty-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #c2410c;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    /* Modes Grid */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .mode-card {
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .mode-card.active {
+      border-color: #f43f5e;
+      background: #fffbfa;
+    }
+
+    /* Timeline */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 14px;
+    }
+
+    .timeline-pill {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      background: #262626;
+      padding: 2px 8px;
+      border-radius: 4px;
+      height: fit-content;
+      white-space: nowrap;
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    details.faq-item {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      background: #fafafa;
+      cursor: pointer;
+    }
+
+    details.faq-item summary {
+      font-weight: 600;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    details.faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.faq-item summary::after {
+      content: '+';
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    details[open].faq-item summary::after {
+      content: '–';
+    }
+
+    details.faq-item p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Footer / CTA */
+    .footer {
+      text-align: center;
+      padding: 20px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- HERO -->
+    <header class="card hero">
+      <div class="hero-avatar-ring">
+        <div class="hero-avatar-inner">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#dc2743" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </div>
+      </div>
+      <div class="badge">Пилот для администраторов</div>
+      <h1>Порядок в чате актива <span>без ручных сверок</span></h1>
+      <p class="hero-desc">
+        Бот, который фиксирует обязательства, выявляет должников и защищает честных участников. Вы управляете чатом, а не тратите воскресенья на сверку списков.
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a href="#cta" class="btn-gradient">Обсудить пилот для вашего чата</a>
+        <a href="#how" class="btn-secondary">Посмотреть, как это устроено</a>
+      </div>
+    </header>
+
+    <!-- SECTION: PROBLEMS -->
+    <section class="card">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        Знакомые проблемы каждого чата
+      </h2>
+      <div class="problem-grid">
+        <div class="problem-item">
+          <div class="problem-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          </div>
+          <div>
+            <h3>Часы на проверки по выходным</h3>
+            <p class="muted">Админам приходится вручную открывать ссылки, сопоставлять ники в Instagram и Telegram и вести блокноты со штрафниками.</p>
+          </div>
+        </div>
+
+        <div class="problem-item">
+          <div class="problem-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          </div>
+          <div>
+            <h3>Бесконечные споры «я вернула»</h3>
+            <p class="muted">Участники жалуются на невзаимность, а нарушители утверждают, что поставили лайк, создавая токсичную атмосферу.</p>
+          </div>
+        </div>
+
+        <div class="problem-item">
+          <div class="problem-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          </div>
+          <div>
+            <h3>Риск наказать невиновного</h3>
+            <p class="muted">Из-за скрытых профилей или ошибок памяти админ может выдать страйк добросовестному участнику и потерять его доверие.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: HOW IT WORKS -->
+    <section class="card" id="how">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0095f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        Как устроена механика
+      </h2>
+      <p class="muted" style="margin-bottom: 16px;">Бот не требует паролей и не вмешивается в Instagram. Он аккуратно структурирует то, что уже происходит в вашем чате.</p>
+      
+      <div class="flow-steps">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div>
+            <h3>Публикация поста</h3>
+            <p class="muted">Участник отправляет ссылку на пост или Reels в чат. Бот фиксирует автора и создаёт задачу на возврат.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div>
+            <h3>Отметка о выполнении</h3>
+            <p class="muted">Другой участник нажимает кнопку или отвечает в чате: «Сделано». Возникает прозрачное обязательство со сроком (например, 24ч).</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div>
+            <h3>Взаимное подтверждение (Peer Review)</h3>
+            <p class="muted">Автор поста видит отметку и может подтвердить или оспорить её в один клик. Нет споров — система закрывает баланс.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div>
+            <h3>Репутация и очередь для админа</h3>
+            <p class="muted">Если кто-то систематически берёт актив и не возвращает, система формирует понятную карточку нарушителя на подтверждение админу.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: ADMIN DEMO -->
+    <section class="card">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        Что видит модератор
+      </h2>
+      <p class="muted" style="margin-bottom: 14px;">Вам больше не нужны блокноты. Вся сводка доступна прямо в админском канале или по одной команде.</p>
+      
+      <div class="demo-window">
+        <div class="demo-header">
+          <span>Сводка чата: Мираж-Актив</span>
+          <span class="demo-badge-live">Мониторинг активен</span>
+        </div>
+        <div class="table-container">
+          <table class="demo-table">
+            <thead>
+              <tr>
+                <th>Участник</th>
+                <th>Баланс</th>
+                <th>Срок</th>
+                <th>Статус</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>@user_olga</strong></td>
+                <td>+4 выполнено</td>
+                <td>В норме</td>
+                <td><span class="tag-ok">Чисто</span></td>
+              </tr>
+              <tr>
+                <td><strong>@user_elena</strong></td>
+                <td>-2 долга</td>
+                <td>истекает через 2ч</td>
+                <td><span class="tag-review">Напоминание</span></td>
+              </tr>
+              <tr>
+                <td><strong>@user_marina</strong></td>
+                <td>-5 долгов</td>
+                <td>просрочено 18ч</td>
+                <td><span class="tag-debt">Кандидат на страйк</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="muted" style="margin-top: 10px; font-size: 13px;">
+        * Бот никогда не банит людей сам — он лишь собирает факты и предлагает вам готовые решения («Выдать предупреждение» / «Исключить»).
+      </p>
+    </section>
+
+    <!-- SECTION: HONEST LIMITATION -->
+    <div class="honesty-box">
+      <div class="honesty-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        Честное ограничение системы
+      </div>
+      <p style="font-size: 14px; margin-bottom: 6px;">
+        <strong>Мы не заглядываем внутрь приложений Instagram.</strong> Никаких серых парсеров, ввода логинов или паролей участников.
+      </p>
+      <p class="muted" style="font-size: 13px;">
+        Система отслеживает <em>заявления участников и подтверждения от получателей актива</em>. Это делает систему на 100% безопасной от блокировок со стороны Meta, сохраняя при этом прозрачную дисциплину в чате.
+      </p>
+    </div>
+
+    <!-- SECTION: MODES -->
+    <section class="card">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bc1888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+          <line x1="3" y1="6" x2="3.01" y2="6"></line>
+          <line x1="3" y1="12" x2="3.01" y2="12"></line>
+          <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+        Подходит под любые правила
+      </h2>
+      <div class="modes-grid">
+        <div class="mode-card active">
+          <h3>Прямой взаимообмен (Like Time)</h3>
+          <p class="muted">Поставили вам — вы обязаны вернуть автору в течение 24 часов. Идеально для классических чатов взаимности.</p>
+        </div>
+        <div class="mode-card">
+          <h3>Общий пул обязательств</h3>
+          <p class="muted">Участник выполняет любые 5 заданий из чата и получает право опубликовать свою ссылку. Никто не ждет конкретного человека.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: ROADMAP -->
+    <section class="card">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e6683c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 14 14"></polyline>
+        </svg>
+        Что дальше (Roadmap развития)
+      </h2>
+      <p class="muted" style="margin-bottom: 12px;">После успешного запуска базового учёта долгов, для вашего чата станут доступны новые функции:</p>
+      <ul style="padding-left: 20px; font-size: 14px; color: var(--text); display: flex; flex-direction: column; gap: 8px;">
+        <li><strong>Тематические категории:</strong> разделение постов по нишам (бьюти, эксперты, фотографы) для лучшего удержания в Instagram.</li>
+        <li><strong>VIP-клуб и Лига надежных:</strong> автоматический допуск в закрытый чат только тех, у кого 98%+ возвратов.</li>
+        <li><strong>Mini App внутри Telegram:</strong> удобный интерфейс в один клик для прохождения заданий без спама в общем чате.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION: PILOT PLAN -->
+    <section class="card">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        План пилота на 4 недели
+      </h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-pill">Неделя 1</div>
+          <div>
+            <h3>Тихий сбор данных</h3>
+            <p class="muted">Бот добавлен в чат, молча анализирует активность и калибрует правила без публичных сообщений.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-pill">Неделя 2</div>
+          <div>
+            <h3>Отчёты только для вас</h3>
+            <p class="muted">Администраторы получают ежедневные приватные дайджесты о реальном балансе в чате.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-pill">Неделя 3</div>
+          <div>
+            <h3>Мягкие напоминания</h3>
+            <p class="muted">Бот начинает вежливо напоминать участникам о дедлайнах перед начислением долга.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-pill">Неделя 4</div>
+          <div>
+            <h3>Итоги и решение</h3>
+            <p class="muted">Оцениваем сокращение времени на модерацию и решаем вопрос о постоянном использовании.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: WHAT WE NEED -->
+    <section class="card">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0095f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="8.5" cy="7.5" r="4"></circle>
+          <polyline points="17 11 19 13 23 9"></polyline>
+        </svg>
+        Что требуется от вас для старта
+      </h2>
+      <p class="muted" style="margin-bottom: 12px;">Вам не нужно перенастраивать чат или менять правила. Достаточно:</p>
+      <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <span style="color: var(--success); font-weight: bold;">✓</span>
+          <span>Добавить бота в группу с правами чтения сообщений</span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <span style="color: var(--success); font-weight: bold;">✓</span>
+          <span>Прислать текущий текст правил (сроки возврата, лимиты постов)</span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <span style="color: var(--success); font-weight: bold;">✓</span>
+          <span>Указать Telegram-юзернеймы основателей и VIP для белого списка</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: FAQ -->
+    <section class="card">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        Часто задаваемые вопросы
+      </h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Это безопасно для аккаунтов участников?</summary>
+          <p>Абсолютно. Ни один участник не вводит логины, пароли или токены Instagram. Работа идёт исключительно с публичными ссылками внутри Telegram.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Что если участник обманул и нажал «Сделано»?</summary>
+          <p>Получатель актива видит эту отметку. Если лайка или комментария нет, автор нажимает кнопку «Не получено», и ситуация мгновенно передаётся на проверку.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Бот может случайно кого-то забанить?</summary>
+          <p>Нет. Бот только предлагает санкции в отдельный админский чат. Финальную кнопку бана или предупреждения всегда нажимает живой администратор.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Сколько стоит участие в пилоте?</summary>
+          <p>Пилотный период на 4 недели полностью бесплатный. Мы собираем обратную связь для финальной доработки продукта.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- SECTION: FINAL CTA -->
+    <section class="card hero" id="cta" style="border: 2px solid #ffd1dc; background: #fffafb;">
+      <div class="badge" style="background: #fff; border-color: #ffd1dc;">Шаг к порядку</div>
+      <h2 style="justify-content: center; font-size: 22px; text-align: center;">Готовы протестировать в вашем чате?</h2>
+      <p class="muted" style="margin-top: 6px; margin-bottom: 20px;">
+        Напишите нам, чтобы обсудить правила вашего сообщества и подключить бота в безопасном тихом режиме.
+      </p>
+      <a href="https://t.me/[плейсхолдер_контакта]" class="btn-gradient" target="_blank" rel="noopener">
+        Написать в Telegram [плейсхолдер]
+      </a>
+      <p class="muted" style="margin-top: 14px; font-size: 13px;">
+        Отвечаем в течение пары часов • Настройка занимает 10 минут
+      </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>© 2026 Система управления взаимоактивом • Для Telegram & Instagram сообществ</p>
+    </footer>
+
+  </div>
+</body>
+</html>
