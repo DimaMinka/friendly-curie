@@ -350,7 +350,147 @@
       justify-content: center;
     }
 
-    /* Leaderboard Styling */
+    /* Before / After Comparison Styles */
+    .compare-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .compare-box {
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      position: relative;
+    }
+
+    .compare-box.before {
+      background: #fdf2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .compare-box.after {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+    }
+
+    .compare-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .compare-tag.before {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .compare-tag.after {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .raw-stream-chat {
+      font-family: monospace;
+      font-size: 12px;
+      background: #ffffff;
+      border: 1px dashed #fca5a5;
+      padding: 10px;
+      border-radius: 8px;
+      color: #7f1d1d;
+      line-height: 1.4;
+    }
+
+    .smart-tg-post {
+      background: #ffffff;
+      border: 1px solid #86efac;
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+      font-size: 13px;
+    }
+
+    .smart-tg-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-weight: 700;
+      color: #15803d;
+      font-size: 12px;
+    }
+
+    .smart-inline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      color: #15803d;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Mini App Mockup Card */
+    .miniapp-screen {
+      background: #ffffff;
+      border: 2px solid var(--border-pink);
+      border-radius: 20px;
+      padding: 18px 14px;
+      box-shadow: 0 8px 24px rgba(220, 39, 67, 0.08);
+      position: relative;
+    }
+
+    .miniapp-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .miniapp-title {
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .miniapp-tabs {
+      display: flex;
+      gap: 6px;
+      background: #fdf2f8;
+      padding: 4px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .miniapp-tab {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 4px;
+      border-radius: 8px;
+      color: var(--text-muted);
+    }
+
+    .miniapp-tab.active {
+      background: #ffffff;
+      color: #db2777;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
     .leaderboard-card {
       border: 1px solid var(--border-pink);
       border-radius: var(--radius-md);
@@ -664,6 +804,93 @@
         </a>
       </div>
     </header>
+
+    <!-- SECTION: BEFORE / AFTER & TELEGRAM STREAM + MINI APP -->
+    <section class="card">
+      <h2>
+        <span style="font-size: 20px;">⚡</span>
+        Как меняется чат: «Было» vs «Стало»
+      </h2>
+      <p class="muted">
+        Привычный поток в Telegram остаётся живым, но становится понятным и структурированным. А вся магия управления переходит в удобный Mini App.
+      </p>
+
+      <div class="compare-container">
+        <!-- КАК БЫЛО -->
+        <div class="compare-box before">
+          <span class="compare-tag before">Как сейчас (хаос и рутина)</span>
+          <div class="raw-stream-chat">
+            https://www.instagram.com/p/DB4x9...<br>
+            Девочки, ловите новый рилс! Лайки комменты плз! 🌸🌸🌸<br>
+            <span style="color:#b91c1c;">— 10 сообщений спустя:</span><br>
+            @marina_visage вернула тебе в сторис!<br>
+            @yana_lifestyle а мне не вернули вчерашний пост, админы разберитесь 🤬
+          </div>
+          <p class="muted" style="margin-top: 8px; font-size: 12px; color: #991b1b;">
+            ❌ Ссылки теряются, в чате флуд отчётами, админы вручную сверяют «кто кому должен».
+          </p>
+        </div>
+
+        <!-- КАК СТАНОВИТСЯ В ТЕЛЕГРАМ -->
+        <div class="compare-box after">
+          <span class="compare-tag after">Как становится в Telegram (умный поток)</span>
+          <div class="smart-tg-post">
+            <div class="smart-tg-header">
+              <span>💄 @daria_beauty • Новое задание</span>
+              <span style="background:#dcfce7; color:#15803d; padding:2px 6px; border-radius:4px;">Активен</span>
+            </div>
+            <div style="font-weight:600; margin-bottom:4px;">Reels: Осенний макияж за 10 минут</div>
+            <div style="color:var(--text-muted); font-size:12px; margin-bottom:6px;">
+              Требуется: 🧡 Лайк • 💬 Комментарий • 🌸 Сохранение
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+              <span style="font-size:11px; color:#166534; font-weight:600;">✓ 12 участниц взяли в работу</span>
+              <span class="smart-inline-btn">📲 Открыть в Mini App</span>
+            </div>
+          </div>
+          <p class="muted" style="margin-top: 8px; font-size: 12px; color: #166534;">
+            ✨ В чате порядок: вместо сотен сообщений об отчётах — аккуратные карточки с прямым переходом в один клик.
+          </p>
+        </div>
+      </div>
+
+      <!-- MINI APP PREVIEW -->
+      <div style="margin-top: 20px;">
+        <h3 style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+          <span>📲</span> Что участницы видят внутри Mini App:
+        </h3>
+        <p class="muted" style="margin-bottom: 12px;">
+          Полноценный интерактивный хаб внутри Telegram (без установки лишних приложений):
+        </p>
+
+        <div class="miniapp-screen">
+          <div class="miniapp-bar">
+            <span class="miniapp-title">
+              <span style="color:#db2777;">●</span> Клуб Взаимоактива
+            </span>
+            <span style="font-size:12px; background:#fdf2f8; color:#be185d; padding:3px 8px; border-radius:10px; font-weight:600;">
+              Баланс: +3 ответа
+            </span>
+          </div>
+
+          <div class="miniapp-tabs">
+            <div class="miniapp-tab active">Задания (14)</div>
+            <div class="miniapp-tab">Мои посты</div>
+            <div class="miniapp-tab">Лидерборд 👑</div>
+          </div>
+
+          <div style="background:#fafafa; border:1px solid var(--border-subtle); border-radius:12px; padding:12px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-weight:700; font-size:13px;">@alina_photo • Карусель</div>
+              <div style="font-size:11px; color:var(--text-muted);">Закатные портреты • 4 слова в комменте</div>
+            </div>
+            <button style="background:var(--ig-gradient); color:#fff; border:none; border-radius:8px; padding:6px 12px; font-size:12px; font-weight:600; cursor:pointer;">
+              Перейти к посту →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- SECTION: VISUAL EXAMPLES FOR GIRLS -->
     <section class="card" id="concept-details">
