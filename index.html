@@ -350,15 +350,204 @@
       justify-content: center;
     }
 
-    /* Telegram Chat Simulation */
-    .tg-chat-mockup {
-      background: #fdf6f8;
+    /* Leaderboard Styling */
+    .leaderboard-card {
       border: 1px solid var(--border-pink);
       border-radius: var(--radius-md);
-      padding: 16px;
+      background: #ffffff;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .leaderboard-podium {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 12px;
+      padding: 24px 14px 18px;
+      background: linear-gradient(180deg, #fff5f7 0%, #ffffff 100%);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .podium-place {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 30%;
+    }
+
+    .podium-place.first {
+      order: 2;
+      width: 36%;
+    }
+
+    .podium-place.second {
+      order: 1;
+    }
+
+    .podium-place.third {
+      order: 3;
+    }
+
+    .podium-avatar-wrap {
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .podium-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #fff;
+      padding: 2px;
+      border: 2px solid #f43f5e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .first .podium-avatar {
+      width: 66px;
+      height: 66px;
+      background: var(--ig-gradient);
+      padding: 3px;
+      font-size: 30px;
+      box-shadow: 0 4px 14px rgba(220, 39, 67, 0.25);
+    }
+
+    .crown-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+    }
+
+    .place-rank {
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #262626;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #fff;
+    }
+
+    .first .place-rank {
+      background: #f59e0b;
+    }
+
+    .podium-user {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .podium-score {
+      font-size: 11px;
+      color: #be185d;
+      font-weight: 600;
+    }
+
+    .leaderboard-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lb-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 13px;
+      transition: background 0.1s;
+    }
+
+    .lb-row:last-child {
+      border-bottom: none;
+    }
+
+    .lb-left {
+      display: flex;
+      align-items: center;
       gap: 12px;
+    }
+
+    .lb-pos {
+      font-weight: 700;
+      color: var(--text-muted);
+      width: 18px;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .lb-avatar-small {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #fdf2f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      border: 1px solid var(--border-pink);
+    }
+
+    .lb-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+
+    .lb-info strong {
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .lb-info span {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .lb-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .lb-badge-100 {
+      background: #ecfdf5;
+      color: #065f46;
+      font-weight: 700;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      border: 1px solid #a7f3d0;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .lb-streak {
+      font-size: 11px;
+      color: #f59e0b;
+      font-weight: 600;
     }
 
     .tg-msg {
@@ -594,6 +783,90 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- SECTION: LEADERBOARD VISUAL CONCEPT -->
+    <section class="card">
+      <h2>
+        <span style="font-size: 20px;">👑</span>
+        Лидерборд и мотивация: «Лига надёжных»
+      </h2>
+      <p class="muted" style="margin-bottom: 14px;">
+        Вместо принуждения — позитивная мотивация. Девушки стремятся быть в топе, потому что первые места получают статус супер-актива, право крепить ссылки в закреп и доступ в закрытый VIP-чат:
+      </p>
+
+      <div class="leaderboard-card">
+        <!-- Podium Top 3 -->
+        <div class="leaderboard-podium">
+          <!-- 2nd Place -->
+          <div class="podium-place second">
+            <div class="podium-avatar-wrap">
+              <div class="podium-avatar">🌸</div>
+              <span class="place-rank">2</span>
+            </div>
+            <div class="podium-user">@alina_photo</div>
+            <div class="podium-score">99.4% • 54 возврата</div>
+          </div>
+
+          <!-- 1st Place (Winner) -->
+          <div class="podium-place first">
+            <div class="podium-avatar-wrap">
+              <span class="crown-badge">👑</span>
+              <div class="podium-avatar">💎</div>
+              <span class="place-rank">1</span>
+            </div>
+            <div class="podium-user">@daria_style</div>
+            <div class="podium-score" style="color: #ea580c; font-weight:700;">100% • 68 возвратов</div>
+          </div>
+
+          <!-- 3rd Place -->
+          <div class="podium-place third">
+            <div class="podium-avatar-wrap">
+              <div class="podium-avatar">✨</div>
+              <span class="place-rank">3</span>
+            </div>
+            <div class="podium-user">@kris_beauty</div>
+            <div class="podium-score">98.9% • 49 возвратов</div>
+          </div>
+        </div>
+
+        <!-- Leaderboard Rows -->
+        <div class="leaderboard-list">
+          <div class="lb-row">
+            <div class="lb-left">
+              <span class="lb-pos">4</span>
+              <div class="lb-avatar-small">💄</div>
+              <div class="lb-info">
+                <strong>@marina_visage</strong>
+                <span>Бьюти • в клубе 3 недели</span>
+              </div>
+            </div>
+            <div class="lb-right">
+              <span class="lb-badge-100">✔ 100% отдача</span>
+              <span class="lb-streak">🔥 14 дней без задержек</span>
+            </div>
+          </div>
+
+          <div class="lb-row">
+            <div class="lb-left">
+              <span class="lb-pos">5</span>
+              <div class="lb-avatar-small">☕</div>
+              <div class="lb-info">
+                <strong>@yana_lifestyle</strong>
+                <span>Лайфстайл • 42 возврата</span>
+              </div>
+            </div>
+            <div class="lb-right">
+              <span class="lb-badge-100">✔ 98.2%</span>
+              <span class="lb-streak" style="color:#0095f6;">💎 VIP-статус</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <p class="muted" style="margin-top: 12px; font-size: 13px;">
+        * Рейтинг считается прозрачно по скользящему окну. Если участница делает перерыв, её репутация не сгорает несправедливо.
+      </p>
     </section>
 
     <!-- SECTION: WHAT ADMIN SEES -->
